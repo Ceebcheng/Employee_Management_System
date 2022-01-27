@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Ceebcheng/Employee_Management_System#readme",
   "dependencies": {
+    "dotenv": "^14.3.2",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"
   }
