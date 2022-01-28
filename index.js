@@ -55,38 +55,56 @@ const listofOptions = () => {
 function viewallDepartments() {
     const sql = `SELECT * from department`;
   
-  db.query(sql, (err, rows) => {
+  db.query(sql, (err, res) => {
     if (err) {
         console.log(err);
        return;
     }
-    console.table(rows);
-  });
+    console.table(res);
+    listofOptions();
+  }); 
 }
 function viewallRoles() {
     const sql = `SELECT role.title, role.id, department.name, role.salary FROM role JOIN department ON role.department_id = department.id`;
   
-  db.query(sql, (err, rows) => {
+  db.query(sql, (err, res) => {
     if (err) {
         console.log(err);
        return;
     }
-    console.table(rows);
-  });
+    console.table(res);
+    listofOptions();
+  }); 
 }
 function viewallEmployees() {
     const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id`;
   
-  db.query(sql, (err, rows) => {
+  db.query(sql, (err, res) => {
     if (err) {
         console.log(err);
        return;
     }
-    console.table(rows);
+    console.table(res);
+    listofOptions();
   });
 }
 function addDepartment() {
-    console.log('viewallDepartments');
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "newDepartment",
+        message: "What is the name of the department you would like to add?",
+      },
+    ])
+    .then(function (answer) {
+      var query = "INSERT INTO department (name) VALUE (?)";
+      db.query(query, answer.newDepartment, function (err, res) {
+        if (err) throw err;
+        console.log(`Successfully Added Department!`);
+        listofOptions();
+      });
+    });
 }
 function addRole() {
     console.log('viewallDepartments');
