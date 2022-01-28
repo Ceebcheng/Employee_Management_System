@@ -20,7 +20,7 @@ Down below are some screenshots of certain tables of the different options given
 ![App Screenshot](https://github.com/Ceebcheng/Employee_Management_System/blob/main/Assets/Capture1.JPG)
 ![App Screenshot](https://github.com/Ceebcheng/Employee_Management_System/blob/main/Assets/Capture2.JPG)
 ![App Screenshot](https://github.com/Ceebcheng/Employee_Management_System/blob/main/Assets/Capture3.JPG)
-![App Screenshot](https://github.com/Ceebcheng/Employee_Management_System/blob/main/Assets/Capture4.JPG)
+![App Screenshot](https://github.com/Ceebcheng/Employee_Management_System/blob/main/Assets/Captur4.JPG)
 
 ## 🔗 Demo
 
