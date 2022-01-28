@@ -1,4 +1,3 @@
-const fs = require('fs');
 const inquirer = require("inquirer");
 const mysql = require('mysql2');
 require('dotenv').config();
@@ -17,9 +16,9 @@ const listofOptions = () => {
     return inquirer.prompt([
         {
             type: "list",
-            message: "Please select one.",
+            message: "Welcome! Please select one.",
             name: "listofOptions",
-            choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee" , "update an employee role"]
+            choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee" , "update an employee role" , "QUIT"]
 
         }
     ])
@@ -47,7 +46,11 @@ const listofOptions = () => {
             case "update an employee role":
                 updateemloyeeRole();
                 break;
-            default: viewallDepartments();
+            case "QUIT":
+                db.end();
+                break;
+            default:
+                viewallDepartments();
         }
     });
 };
@@ -89,8 +92,7 @@ function viewallEmployees() {
   });
 }
 function addDepartment() {
-    inquirer
-    .prompt([
+    inquirer.prompt([
       {
         type: "input",
         name: "newDepartment",
@@ -98,8 +100,8 @@ function addDepartment() {
       },
     ])
     .then(function (answer) {
-      var query = "INSERT INTO department (name) VALUE (?)";
-      db.query(query, answer.newDepartment, function (err, res) {
+        const sql = "INSERT INTO department (name) VALUE (?)";
+      db.query(sql, answer.newDepartment, function (err, res) {
         if (err) throw err;
         console.log(`Successfully Added Department!`);
         listofOptions();
@@ -107,15 +109,71 @@ function addDepartment() {
     });
 }
 function addRole() {
-    console.log('viewallDepartments');
+    inquirer.prompt([
+      {
+        type: "input",
+        name: "title",
+        message: "What is the title of the new role?",
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary?",
+      },
+      {
+        type: "list",
+        name: "departmentID",
+        message:
+          "What is the Department ID for this new role? Please select 1 for Sales, 2 for Developers, 3 for HR",
+        choices: [1, 2, 3]
+      },
+    ])
+    .then(function (answer) {
+        const sql = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
+      db.query(sql,[answer.title, answer.salary, answer.departmentID],function (err, res) {
+          if (err) throw err;
+            console.log(`Successfully Added Role: ${answer.title}`);
+            listofOptions();
+          }
+      )}
+    )
 }
 function addEmplyoee() {
-    console.log('viewallDepartments');
+    inquirer.prompt([
+      {
+        type: "input",
+        name: "employeefirstName",
+        message: "What is the employee's first name",
+      },
+      {
+        type: "input",
+        name: "employeelastName",
+        message: "What is the employee's last name?",
+      },
+      {
+        type: "input",
+        name: "employeeroleID",
+        message: "What is the employee's role ID?",
+      },
+      {
+        type: "input",
+        name: "managerID",
+        message: "What is your manager ID?",
+      }
+    ])
+    .then(function (answer) {
+        const sql = "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
+      db.query(sql,[answer.employeefirstName, answer.employeelastName, answer.employeeroleID, answer.managerID],function (err, res) {
+          if (err) throw err;
+            console.log(`Successfully Added Role: ${answer.employeefirstName}`);
+            listofOptions();
+          }
+      )}
+    )
 }
 function updateemloyeeRole() {
-    console.log('viewallDepartments');
+    console.log('Update Employee Role');
+    listofOptions();
 }
-
-
 
 listofOptions();
