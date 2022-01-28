@@ -124,8 +124,8 @@ function addRole() {
         type: "list",
         name: "departmentID",
         message:
-          "What is the Department ID for this new role? Please select 1 for Sales, 2 for Developers, 3 for HR",
-        choices: [1, 2, 3]
+          "What is the Department ID for this new role? Please select 1 for Sales, 2 for Developers, 3 for HR, 4 for Security",
+        choices: [1, 2, 3, 4]
       },
     ])
     .then(function (answer) {
