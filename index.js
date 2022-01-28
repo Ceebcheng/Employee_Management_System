@@ -64,7 +64,7 @@ function viewallDepartments() {
   });
 }
 function viewallRoles() {
-    const sql = `SELECT department.name, role.id, role.title, role.salary FROM role JOIN department ON role.department_id = department.id`;
+    const sql = `SELECT role.title, role.id, department.name, role.salary FROM role JOIN department ON role.department_id = department.id`;
   
   db.query(sql, (err, rows) => {
     if (err) {
@@ -75,7 +75,15 @@ function viewallRoles() {
   });
 }
 function viewallEmployees() {
-    console.log('test3');
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id`;
+  
+  db.query(sql, (err, rows) => {
+    if (err) {
+        console.log(err);
+       return;
+    }
+    console.table(rows);
+  });
 }
 function addDepartment() {
     console.log('viewallDepartments');
